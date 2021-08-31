@@ -15,11 +15,11 @@ router.put('/addToCart/:id', (req, res) => {
         $push: { cartItems: req.body },
     }).then((data) => res.send('Added a Cart Item'));
 });
-router.put('/:id', (req, res) => {
-    Users.findByIdAndUpdate(req.params.id, {
-        $set: {
-            cartItems: req.body,
-        },
-    }).then((data) => res.send('Cart Items Updated'));
+router.delete('/:user_id/:item_id', (req, res) => {
+  Users.findByIdAndUpdate(req.params.user_id, {
+    $pull: {
+      cartItems: { id: req.params.item_id },
+    },
+  }).then((data) => res.send('Cart Items Updated'));
 });
 export default router;
